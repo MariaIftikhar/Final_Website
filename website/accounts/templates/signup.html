@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login To proceed.</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap" rel="stylesheet">
+    
+<script>
+  var check = function() {
+    if (document.getElementById('inputPassword1').value ==
+      document.getElementById('inputPassword2').value) {
+      document.getElementById('message').style.color = 'green';
+      document.getElementById('message').innerHTML = 'Matched!';
+    } 
+    else {
+      document.getElementById('message').style.color = 'red';
+      document.getElementById('message').innerHTML = 'Not matched :(';
+    }
+  }
+  
+  var check1 = function() {
+    var letters = /^[A-Za-z]+$/;
+    var x = document.forms["myForm"]["firstname"].value;
+    if (x == "" || x == null) {
+      alert("First name must be filled out");
+      return false;
+    }
+    if (x.length < 3) {
+      alert("First name is less than 3");
+      return false;
+    }
+    if(!(!/[^a-zA-Z]/.test(x))){
+      alert('Please input alphabet characters only in First name');
+      return false;
+    }
+  }
+
+  var check2 = function() {
+    var x = document.forms["myForm"]["lastname"].value;
+    if (x == "" || x == null) {
+      alert("Last name must be filled out");
+      return false;
+    }
+    if (x.length < 3) {
+      alert("Last name is less than 3");
+      return false;
+    }
+    if(!(!/[^a-zA-Z]/.test(x))){
+      alert('Please input alphabet characters only in last name');
+      return false;
+    }
+  }
+
+  var check3 = function() {
+    var x = document.forms["myForm"]["username"].value;
+    if (x == "" || x == null) {
+      alert("Username must be filled out");
+      return false;
+    }
+  }
+
+  var check4 = function() {
+    var x = document.forms["myForm"]["contact_no"].value;
+    if (x == "" || x == null) {
+      alert("numbr must be filled out");
+      return false;
+    }
+  }
+
+  var check69 = function() {
+    var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    var x = document.forms["myForm"]["email"].value;
+    if(!x.match(mailformat)){
+      alert("You have entered an invalid email address!");
+      document.myForm.email.focus();
+      return false;
+    }
+  }
+     ////////////////////////////
+ 
+</script>
+
+</head>
+<body style=" background-color:  #1b2125;" onload='document.myForm.focus()' >
+    <div class="container">
+      <form action="" method="POST" name="myForm">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            
+            <div class="col-md-5">
+                <h2 style="text-align: center;">Signup for a new account &copy;</h2>
+                <br>
+                
+                {% if messages %}
+                <ul class="messages" >
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <br>
+
+                     <label for="inputName4">First Name</label>
+                     <div data-tip="Minimum three letters needed.">
+                     <input onfocusout='check1();' type="text" class="form-control" 
+                     id="inputName4" placeholder="Enter first name" name="firstname" 
+                     pattern="[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" required> 
+                     </div>
+                     <br>
+                     
+                     <label for="inputName4">Last Name</label>
+                     <div data-tip="Minimum three letters needed.">
+                     <input required type="text" onfocusout='check2();' 
+                     class="form-control" id="inputName4" placeholder="Enter last name"
+                     pattern="[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" name="lastname"> 
+                     </div>
+                     <br>
+
+                    <label for="inputEmail4">Email</label>
+                     <div data-tip="Follow correct email format.">
+ 
+
+                    <input required type="email" 
+                    onfocusout='check9();' class="form-control" id="inputEmail4" placeholder="Enter Email" 
+                    name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+.[a-z]{3}$">     
+                    </div>
+                    <br>
+
+                    <label for="inputName1">Username</label>
+                    <input required type="text" class="form-control" id="inputName1" 
+                    placeholder="Enter username" name = "username" pattern="\S+.*" onfocusout='check3();'> 
+                    <br>
+
+                    <label for="contact_no"> Contact_no </label>
+                    <div data-tip="Pakistan Mobile Number format only.">
+                    <input required maxlength="11" type="text" class = "form-control" name="contact_no" 
+                    id="contact_no" pattern="03[0-9]{2}[0-9]{7}" onfocusout='check4();' placeholder="03xxxxxxxxx" >
+                    </div>
+                    <br>
+
+                    <label> Profile Picture (optional) </label>
+                    <input type="file" class="form-control" name="picture">
+                    <br>
+
+                    <label for="inputPassword1">Password</label>
+                    <div data-tip="Minimum 4 chracters allowed.">
+                    <input required type="password" class="form-control" id="inputPassword1" 
+                    placeholder="Password" name="password1" pattern=".{4,}" onkeyup='check();'>
+                    </div>
+                    <br>
+                    <label for="inputPassword2">Confirm Password</label>
+                    <input required type="password" class="form-control" id="inputPassword2" 
+                    placeholder="Retype Password" name= "password2" pattern=".{4,}" onkeyup='check();'>
+                    <span id='message'></span>
+                    <br>
+                    <br>                 
+            </div>
+            <div class="col-md-4">
+                <a href="../login">Already a User? Click here to login.</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+               
+            </div>
+
+            <div class="col-md-7">
+                <button type="submit" class="btn btn-primary" href="admin" >
+                  Sign Up & continue
+                </button>
+             </div>  
+            </div>
+        <div class="row">
+          <div class="col-md-5">
+              <span>All rights reserved &female;</span>
+          </div>
+        </div>
+      </form>
+
+    </div>
+   <style>
+       .body{
+        background-color:  #1b2125;
+       }
+       .container{
+           
+           font-family: 'Chakra Petch', sans-serif !important; 
+           color: white;
+           padding: 40px;
+           align-items: center;
+       }
+       button{
+         background-color: rgb(24, 107, 120) !important;
+         
+         }
+      [data-tip] {
+	position:relative;
+
+}
+[data-tip]:before {
+	content:'';
+	display:none;
+	content:'';
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #1a1a1a;	
+	position:absolute;
+	  top: -5px;
+  left: 105%;
+	z-index:8;
+	font-size:0;
+	line-height:0;
+	width:0;
+	height:0;
+}
+[data-tip]:after {
+	display:none;
+	content:attr(data-tip);
+	position:absolute;
+	  top: -5px;
+  left: 105%;
+	padding:5px 8px;
+	background:#1a1a1a;
+	color:#fff;
+	z-index:9;
+	font-size: 0.75em;
+	height:18px;
+	line-height:18px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	white-space:nowrap;
+	word-wrap:normal;
+}
+[data-tip]:hover:before,
+[data-tip]:hover:after {
+	display:block;
+}
+
+.messages{
+           color:white;
+           background-color:rgba(216, 95, 190, 0.603);
+       }
+   </style>
+    
+
+</body>
+</html>
